@@ -1,0 +1,13 @@
+<div class="list row">
+    <div>
+        <h4>Productos</h4>
+        <ul *ngIf="productos" class="list-group">
+            <li class="list-group-item" *ngFor="let producto of productos; let i = index">
+                Producto : {{ producto.descripcion }} Precio: ${{producto.precio}}
+                <button  (click)="agregarProducto(producto, i)">
+                    Agregar producto
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div *ngIf="currentCarrito" class="edit-form">
+    <h4>Carrito</h4>
+    <form>
+        <div class="form-group">
+            <label for="title">Cliente</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="currentCarrito.cliente.nombre" name="title"
+                disabled="true" />
+
+            <div class="col-md-6">
+                <h4>Productos</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let producto of currentCarrito.productos; let i = index">
+                        Producto : {{ producto.descripcion }} Precio: ${{producto.precio}}
+                        <button *ngIf="!currentCarrito.fechaCompra" class="badge badge-danger"
+                            (click)="borrarProducto(producto,i)">
+                            Borrar producto
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label><strong>Estado del carrito:</strong></label>
+            {{ currentCarrito.fechaCompra ? "Compra Realizada" : "Pendiente de compra" }}
+        </div>
+    </form>
+
+    <button class="badge badge-primary mr-2" (click)="agregarProducto()">
+        Agregar Producto
+    </button>
+
+</div>

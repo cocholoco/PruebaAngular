@@ -1,0 +1,29 @@
+<div class="submit-form">
+    <div *ngIf="!submitted">
+        <div class="form-group">
+            <div class="col-md-6">
+                <h4>Seleccionar cliente</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let cliente of clientes; let i = index"
+                        [class.active]="i == currentIndex" (click)="setActiveCliente(cliente, i)">
+                        {{ cliente.nombre }}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="description">Tipo de carrito</label>
+            <input class="form-control" id="description" required [(ngModel)]="carrito.tipoCarrito.descripcion"
+                name="description" disabled="true" />
+        </div>
+
+        <button (click)="saveCarrito()" class="btn btn-success">Seleccionar Cliente</button>
+    </div>
+
+    <div *ngIf="submitted">
+        <h4>Se Selecciono correctamente!</h4>
+        <button class="btn btn-success" (click)="newCarrito()">Nuevo Carrito</button>
+    </div>
+</div>

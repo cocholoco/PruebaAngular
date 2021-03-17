@@ -1,0 +1,59 @@
+<div class="list row">
+    <div class="col-md-6">
+       <ul class="list-group">
+            <li class="list-group-item" *ngFor="let carrito of carritos; let i = index"
+                [class.active]="i == currentIndex" (click)="setActiveCarrito(carrito, i)">
+                ID: {{ carrito.id }} Cliente: {{carrito.cliente.nombre}}
+                <button class="badge badge-danger" (click)="borrarCarrito(carrito, i)">
+                    Borrar carrito
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class=" col-md-6">
+        <div *ngIf="currentCarrito">
+            <h4>Carrito</h4>
+            <div>
+                <label><strong>Cliente:</strong></label>
+                {{ currentCarrito.cliente.nombre }}
+            </div>
+            <div>
+                <label><strong>Tipo de carrito: </strong></label>
+                {{ currentCarrito.tipoCarrito.descripcion.toLowerCase() }}
+            </div>
+            <div>
+                <label><strong>Total: $</strong></label>
+             <!--   {{ currentCarrito.total }} --->
+             {{ currentCarrito.fechaCompra ?   currentCarrito.total/2  : currentCarrito.total }}
+
+            </div>
+            <div>
+                <label><strong>Estado:</strong></label>
+                {{ currentCarrito.fechaCompra ? "Compra realizada" : "Pendiente de compra" }}
+            </div>
+
+            <div>
+                <h4>Productos del carrito</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let producto of currentCarrito.productos; let i = index"
+                        [class.active]="i == currentIndex">
+                        Id : {{ producto.id }} Producto: {{producto.descripcion}} Precio:
+                        ${{producto.precio}}
+                    </li>
+                </ul>
+            </div>
+
+            <a *ngIf="!currentCarrito.fechaCompra" class="badge badge-warning" href="/carrito/{{ currentCarrito.id }}">
+                Modificar productos
+            </a>
+            <a *ngIf="!currentCarrito.fechaCompra" class="badge badge-danger" (click)="finalizarCompra(currentCarrito)">
+                Finalizar compra
+            </a>
+        </div>
+
+        <div *ngIf="!currentCarrito">
+            <br />
+            <p>Haga click en un carrito para ver el detalle</p>
+        </div>
+    </div>
+</div>
